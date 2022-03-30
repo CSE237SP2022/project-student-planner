@@ -9,13 +9,19 @@ class TodoTest {
 	
 	@BeforeEach
 	void setup() {
-		todo = new Todo("essay"); //setup
+		todo = new Todo("essay", "April 1"); //setup
 	}
 	
 	@Test
 	void testGetName() {
 		String name = todo.getName();
 		assertTrue("essay".equals(name));
+	}
+	
+	@Test
+	void testGetDate() {
+		String date = todo.getDate();
+		assertTrue("April 1".equals(date));
 	}
 
 }
