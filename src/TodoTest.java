@@ -9,7 +9,7 @@ class TodoTest {
 	
 	@BeforeEach
 	void setup() {
-		todo = new Todo("essay", "April 1"); //setup
+		todo = new Todo("essay", "April 1", "high"); //setup
 	}
 	
 	@Test
@@ -22,6 +22,12 @@ class TodoTest {
 	void testGetDate() {
 		String date = todo.getDate();
 		assertTrue("April 1".equals(date));
+	}
+	
+	@Test
+	void testGetLevel() {
+		String level = todo.getPriority();
+		assertTrue("high".equals(level));
 	}
 
 }
