@@ -12,6 +12,7 @@ class PlannerTest {
 		planner = new Planner(null); //setup
 	}
 	
+	//How do we test for user input?
 	@Test
 	void testGetClassName() {
 		String className = planner.getClassInformation();
