@@ -14,7 +14,7 @@ class PlannerTest {
 	
 	@Test
 	void testGetClassName() {
-		String className = planner.getClassName();
+		String className = planner.getClassInformation();
 		assertTrue("English".equals(className));
 	}
 
