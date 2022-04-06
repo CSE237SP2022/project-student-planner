@@ -4,16 +4,16 @@
  * @author Liza Kaniewski
  * 
  */
-public class Class {
+public class Course {
 	
-	private String category;
+	private String coursename;
 	
-	public Class(String category) {
-		this.category = category;
+	public Course(String coursename) {
+		this.coursename = coursename;
 	}
 	
 	public String getClassName() {
-		return category;
+		return coursename;
 	}
 
 }

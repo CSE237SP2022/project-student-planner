@@ -1,20 +1,23 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ClassTest {
+class CourseTest {
 
-	private Class className;
+	private Course courseName;
 
 	@BeforeEach
 	void setUp() {
-		className = new Class("237: Computer Science");
+		courseName = new Course("237: Computer Science");
 	}
 
 	@Test
 	void testGetClassName() {
-		String name = className.getClassName();
+		String name = courseName.getClassName();
 		assertTrue("237: Computer Science".equals(name));
 	}
 
