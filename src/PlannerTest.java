@@ -35,9 +35,23 @@ class PlannerTest {
 		
 		planner.listOfClassesAndTodos.put(english, englishTodos);
 		
+		//Note @ Sophia for the red line to go away for me  planner.getNumberOfTodos(); worked
 		int numberOfTodos = listOfClassesAndTodos.getNumberOfTodos();
 		
 		assertTrue(numberOfTodos == 2);
+	}
+	
+	@Test 
+	void testgetNumberOfClasses() {
+		Class biology = new Class("Biology");
+		Class chemistry = new Class("Chemistry");
+		planner.listOfClassesAndTodos.put(biology, null);
+		planner.listOfClassesAndTodos.put(chemistry, null);
+		
+		int numberOfClasses = planner.getNumberOfClasses();
+		
+		assertTrue(numberOfClasses == 2);
+		
 	}
 	
 	@Test
@@ -56,6 +70,19 @@ class PlannerTest {
 		int numberOfTodos = listOfClassesAndTodos.getNumberOfTodos();
 	
 		assertTrue(numberOfTodos == 3);
+	}
+	
+	@Test 
+	void testAddClass() {
+		Class english = new Class("English");
+		Class math = new Class("Math");
+		
+		Class newClass = new Class("Spanish");
+		planner.listOfClassesAndTodos.put(newClass, null);
+		
+		int numberOfClasses = planner.getNumberOfClasses();
+		assertTrue(numberOfClasses == 3);
+		
 	}
 	
 	
