@@ -67,8 +67,12 @@ public class Planner {
 	}
 	
 	public void addClass(String className) {
-		// TODO: implement this method
-	}
+		System.out.println("Enter the name of the course you want to add:");
+		String coursename = getUserInput();
+		Class course = new Class(coursename);
+		listOfClassesAndTodos.put(course, null);
+		
+		}
 	
 	public void addTodo() {
 		System.out.println("Enter the name of the class this todo falls under:");
@@ -105,6 +109,11 @@ public class Planner {
 			numberOfTodos += listOfClassesAndTodos.get(c).size();
 		}
 		return numberOfTodos;
+	}
+	
+	public int getNumberOfClasses() {
+		int numberOfClasses = listOfClassesAndTodos.size();
+		return numberOfClasses;
 	}
 	
 	
