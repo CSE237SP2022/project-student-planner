@@ -6,14 +6,14 @@
  */
 public class Class {
 	
-	private String category;
+	private String name;
 	
-	public Class(String category) {
-		this.category = category;
+	public Class(String name) {
+		this.name = name;
 	}
 	
 	public String getClassName() {
-		return category;
+		return name;
 	}
 
 }
