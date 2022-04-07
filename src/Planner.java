@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.List;
@@ -13,11 +14,13 @@ public class Planner {
 
 	private static Scanner scanner;
 	HashMap<Class, List<Todo>> listOfClassesAndTodos;
+	List<String> courseList;
 	
 	
 	public Planner(Scanner scanner) {
 		this.scanner = new Scanner(System.in);
 		this.listOfClassesAndTodos = new HashMap<Class, List<Todo>>();
+		this.courseList = new ArrayList<String>();
 	}
 	
 	public static void main(String[] args) {
@@ -69,9 +72,8 @@ public class Planner {
 		if(this.listOfClassesAndTodos != null) {
 			listOfClassesAndTodos.forEach((key, value) -> {
 				String course = key.getClassName();
-				List todos = value;
 				System.out.println(course + ":");
-				System.out.println(todos);
+				value.forEach((t) -> System.out.println(t.getName()));
 				System.out.println();
 			});
 			
@@ -86,23 +88,24 @@ public class Planner {
 		String coursename = getUserInput();
 		Class course = new Class(coursename);
 		listOfClassesAndTodos.put(course, null);
-		
+		courseList.add(course.getClassName());
 		}
 	
 	public void addTodo() {
 		System.out.println("Enter the name of the class this todo falls under:");
 		String className = getUserInput();
 		
-		if (!listOfClassesAndTodos.containsKey(className)) {
+		if (!courseList.contains(className)) {
 			System.out.println("This class does not exist. Enter 'A' to add this class, or 'R' to return to the main menu.");
 			String input = getUserInput();
 			if(input.equals("A")) {
 				Class course = new Class(className);
 				listOfClassesAndTodos.put(course, null);
+				courseList.add(course.getClassName());
 			} else {
 				//TODO: implement a mainMenu() method
+				return;
 			}
-			return;
 		}
 		
 		System.out.println("Enter the name of the todo you would like to add:");
@@ -115,7 +118,19 @@ public class Planner {
 		Todo todo = new Todo(todoName, todoDate, todoLevel);
 		
 		// add todo to the class
-		listOfClassesAndTodos.get(className).add(todo);
+		listOfClassesAndTodos.forEach((key, value) -> {
+			if(key.getClassName().equals(className)) {
+				List<Todo> courseTodos = listOfClassesAndTodos.get(key);
+				if(courseTodos == null) {
+					courseTodos = new ArrayList<Todo>();
+					courseTodos.add(todo);
+					listOfClassesAndTodos.put(key, courseTodos);
+				}
+				else {
+					listOfClassesAndTodos.get(key).add(todo);
+				}
+			}
+		});
 		
 	}
 	
