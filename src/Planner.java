@@ -25,12 +25,8 @@ public class Planner {
 		Planner planner = new Planner(scanner);
 		
 		planner.printTodos(); //automatically prints current list (should start empty)
-		System.out.println();
-		//lists options of actions
-		System.out.println("To add a class, enter C");
-		System.out.println("To add a todo, enter T");
-		System.out.println("To view your current list of classes and todos, enter L");
-		System.out.println("To exit your planner, enter X");
+		
+		planner.printInstructions();
 		
 		String input = getUserInput();
 		while(!input.equals("X")) {
@@ -39,6 +35,8 @@ public class Planner {
 			}
 			else if(input.equals("C")) {
 				//TODO: fill in for when a class is added
+				planner.addClass();
+				
 			}
 			else if(input.equals("T")) {
 				//TODO: fill in for when a todo item is added
@@ -47,6 +45,7 @@ public class Planner {
 			else {
 				System.out.println("That is an invalid command.");
 			}
+			planner.printInstructions();
 			input = getUserInput();
 		}
 	}
@@ -56,17 +55,33 @@ public class Planner {
 		return input;
 	}
 	
+	public void printInstructions() {
+		System.out.println();
+		//lists options of actions
+		System.out.println("To add a class, enter C");
+		System.out.println("To add a todo, enter T");
+		System.out.println("To view your current list of classes and todos, enter L");
+		System.out.println("To exit your planner, enter X");
+	}
+	
 	public void printTodos() {
 		System.out.println("Your current classes and todos:");
 		if(this.listOfClassesAndTodos != null) {
-			System.out.println(this.listOfClassesAndTodos);
+			listOfClassesAndTodos.forEach((key, value) -> {
+				String course = key.getClassName();
+				List todos = value;
+				System.out.println(course + ":");
+				System.out.println(todos);
+				System.out.println();
+			});
+			
 		}
 		else {
 			System.out.println("You currently have no classes or todos.");
 		}
 	}
 	
-	public void addClass(String className) {
+	public void addClass() {
 		System.out.println("Enter the name of the course you want to add:");
 		String coursename = getUserInput();
 		Class course = new Class(coursename);
@@ -82,7 +97,8 @@ public class Planner {
 			System.out.println("This class does not exist. Enter 'A' to add this class, or 'R' to return to the main menu.");
 			String input = getUserInput();
 			if(input.equals("A")) {
-				addClass(className);
+				Class course = new Class(className);
+				listOfClassesAndTodos.put(course, null);
 			} else {
 				//TODO: implement a mainMenu() method
 			}
