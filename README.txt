@@ -12,6 +12,7 @@ For the third iteration, we intend to build out the Todo items so that the user 
 
 Is there anything that you implemented but doesn't currently work?
 Currently, everything we implemented works. However, it is an extremely simple program that prompts the user to enter a class name, and then repeats the class name back in the terminal. This is as far as we have gotten so far but plan on building this out more extensively for iteration 2. 
+Currently, for iteration 2, everything we implemented works including our tests. 
 
 What commands are needed to compile and run your code from the command line (or better yet, provide a script that people can use to run your program!)
 In the command line, cd into src, and then run:
