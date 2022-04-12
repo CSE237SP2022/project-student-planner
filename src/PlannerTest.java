@@ -1,5 +1,6 @@
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
@@ -20,9 +21,15 @@ class PlannerTest {
 	}
 	
 	@Test
-	void testgetUserInput() {
-		String input = planner.getUserInput();
-		assertTrue("A".equals(input));
+	void testGetNumberOfTodosZeroTodos() {
+		Class english = new Class("English");
+		List<Todo> todos = new ArrayList<Todo>();
+		
+		planner.listOfClassesAndTodos.put(english, todos);
+		
+		int numberOfTodos = planner.getNumberOfTodos();
+		
+		assertTrue(numberOfTodos == 0);
 	}
 	
 	@Test
@@ -31,14 +38,23 @@ class PlannerTest {
 		Todo todo1 = new Todo("todo1", "January", "1");
 		Todo todo2 = new Todo("todo2", "January", "1");
 		
-		List<Todo> englishTodos = new List<Todo>();
+		List<Todo> englishTodos = new ArrayList<Todo>();
+		englishTodos.add(todo1);
+		englishTodos.add(todo2);
 		
 		planner.listOfClassesAndTodos.put(english, englishTodos);
 		
 		//Note @ Sophia for the red line to go away for me  planner.getNumberOfTodos(); worked
-		int numberOfTodos = listOfClassesAndTodos.getNumberOfTodos();
+		int numberOfTodos = planner.getNumberOfTodos();
 		
 		assertTrue(numberOfTodos == 2);
+	}
+	
+	@Test
+	void testgetNumberOfClassesZeroClasses() {
+		int numberOfClasses = planner.getNumberOfClasses();
+		
+		assertTrue(numberOfClasses == 0);
 	}
 	
 	@Test 
@@ -51,40 +67,70 @@ class PlannerTest {
 		int numberOfClasses = planner.getNumberOfClasses();
 		
 		assertTrue(numberOfClasses == 2);
-		
 	}
 	
 	@Test
-	void testAddTodo() {		
+	void testAddTodoFirstTodo() {
+		String englishString = "English";
 		Class english = new Class("English");
-		Todo todo1 = new Todo("todo1", "January", "1");
-		Todo todo2 = new Todo("todo2", "January", "1");
 		
-		List<Todo> englishTodos = new List<Todo>();
-		
+		List<Todo> englishTodos = new ArrayList<Todo>();
+
 		planner.listOfClassesAndTodos.put(english, englishTodos);
 		
 		Todo newTodo = new Todo("Write essay", "April 28th", "2");
 	
-		listOfClassesAndTodos.get(english).addTodo(newTodo);
-		int numberOfTodos = listOfClassesAndTodos.getNumberOfTodos();
+		planner.addTodo(newTodo, englishString);
+		int numberOfTodos = planner.getNumberOfTodos();
+	
+		assertTrue(numberOfTodos == 1);
+	}
+	
+	@Test
+	void testAddTodo() {	
+		String englishString = "English";
+		Class english = new Class("English");
+		Todo todo1 = new Todo("todo1", "January", "1");
+		Todo todo2 = new Todo("todo2", "January", "1");
+		
+		List<Todo> englishTodos = new ArrayList<Todo>();
+		englishTodos.add(todo1);
+		englishTodos.add(todo2);
+
+		planner.listOfClassesAndTodos.put(english, englishTodos);
+		
+		Todo newTodo = new Todo("Write essay", "April 28th", "2");
+	
+		planner.addTodo(newTodo, englishString);
+		int numberOfTodos = planner.getNumberOfTodos();
 	
 		assertTrue(numberOfTodos == 3);
+	}
+	
+	@Test
+	void testAddClassFirstClass() {
+		Class newClass = new Class("Spanish");
+		String newClassName = newClass.getClassName();
+		planner.addClass(newClassName);
+		
+		int numberOfClasses = planner.getNumberOfClasses();
+		assertTrue(numberOfClasses == 1);
 	}
 	
 	@Test 
 	void testAddClass() {
 		Class english = new Class("English");
 		Class math = new Class("Math");
+		planner.listOfClassesAndTodos.put(english, null);
+		planner.listOfClassesAndTodos.put(math, null);
 		
 		Class newClass = new Class("Spanish");
-		planner.listOfClassesAndTodos.put(newClass, null);
+		String newClassName = newClass.getClassName();
+		planner.addClass(newClassName);
 		
 		int numberOfClasses = planner.getNumberOfClasses();
 		assertTrue(numberOfClasses == 3);
-		
 	}
-	
 	
 
 }

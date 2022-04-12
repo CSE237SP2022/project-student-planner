@@ -38,12 +38,12 @@ public class Planner {
 			}
 			else if(input.equals("C")) {
 				//TODO: fill in for when a class is added
-				planner.addClass();
+				planner.getInputClass();
 				
 			}
 			else if(input.equals("T")) {
 				//TODO: fill in for when a todo item is added
-				planner.addTodo();
+				planner.getInputTodo();
 			}
 			else {
 				System.out.println("That is an invalid command.");
@@ -83,15 +83,20 @@ public class Planner {
 		}
 	}
 	
-	public void addClass() {
+	public void getInputClass() {
 		System.out.println("Enter the name of the course you want to add:");
-		String coursename = getUserInput();
-		Class course = new Class(coursename);
+		String courseName = getUserInput();
+		
+		addClass(courseName);
+	}
+	
+	public void addClass(String courseName) {
+		Class course = new Class(courseName);
 		listOfClassesAndTodos.put(course, null);
 		courseList.add(course.getClassName());
-		}
+	}
 	
-	public void addTodo() {
+	public void getInputTodo() {
 		System.out.println("Enter the name of the class this todo falls under:");
 		String className = getUserInput();
 		
@@ -116,7 +121,11 @@ public class Planner {
 		String todoLevel = getUserInput();
 		
 		Todo todo = new Todo(todoName, todoDate, todoLevel);
+		addTodo(todo, className);
 		
+	}
+	
+	public void addTodo(Todo todo, String className) {
 		// add todo to the class
 		listOfClassesAndTodos.forEach((key, value) -> {
 			if(key.getClassName().equals(className)) {
@@ -131,7 +140,6 @@ public class Planner {
 				}
 			}
 		});
-		
 	}
 	
 	public int getNumberOfTodos() {
