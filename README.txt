@@ -1,4 +1,4 @@
-Group members: Sophia Rosset, Liza Kaniewski, Sloan Karpen, Victoria
+Group members: Sophia Rosset, Liza Kaniewski, Sloan Karpen
 
 Project: Planner that is meant to help keep students organized by keeping track of their academic classes and the todo items within each class. 
 
