@@ -32,6 +32,11 @@ public class Planner {
 		planner.printInstructions();
 		
 		String input = getUserInput();
+		userCommand(input, planner);
+		
+	}
+	
+	public static void userCommand(String input, Planner planner) {
 		while(!input.equals("X")) {
 			if(input.equals("L")) {
 				planner.printTodos();
