@@ -50,6 +50,9 @@ public class Planner {
 				//TODO: fill in for when a todo item is added
 				planner.getInputTodo();
 			}
+			else if(input.equals("D")){
+				planner.deleteInputTodo();
+			}
 			else {
 				System.out.println("That is an invalid command.");
 			}
@@ -69,6 +72,7 @@ public class Planner {
 		System.out.println("To add a class, enter C");
 		System.out.println("To add a todo, enter T");
 		System.out.println("To view your current list of classes and todos, enter L");
+		System.out.println("To delete a todo, enter D");
 		System.out.println("To exit your planner, enter X");
 	}
 	
@@ -109,6 +113,7 @@ public class Planner {
 			System.out.println("This class does not exist. Enter 'A' to add this class, or 'R' to return to the main menu.");
 			String input = getUserInput();
 			if(input.equals("A")) {
+				System.out.println("Enter the name of the course you want to add");
 				Class course = new Class(className);
 				listOfClassesAndTodos.put(course, null);
 				courseList.add(course.getClassName());
@@ -158,6 +163,34 @@ public class Planner {
 	public int getNumberOfClasses() {
 		int numberOfClasses = listOfClassesAndTodos.size();
 		return numberOfClasses;
+	}
+	
+	public void deleteInputTodo() {
+		
+		System.out.println("Enter the name of the class this todo falls under:");
+		String className = getUserInput();
+		//Class course = new Class(className);
+
+		System.out.println("Enter the name of the todo you would like to delete:");
+		String todoName = getUserInput();
+		
+		deleteTodo(className, todoName);
+	} 
+	
+	public void deleteTodo(String className, String todoName) {
+		listOfClassesAndTodos.forEach((key, value) -> {
+			if(key.getClassName().equals(className)) {
+				List<Todo> courseTodos = listOfClassesAndTodos.get(key);
+				for (Todo todo : courseTodos) {
+					if (todo.getName().equals(todoName)) {
+						courseTodos.remove(todo);
+					} else {
+						todo.getName();
+					}
+				}
+				listOfClassesAndTodos.put(key, courseTodos);
+			}
+		});
 	}
 	
 	

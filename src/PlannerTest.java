@@ -132,5 +132,30 @@ class PlannerTest {
 		assertTrue(numberOfClasses == 3);
 	}
 	
+	@Test
+	void testDeleteTodo() {
+		String englishString = "English";
+		Class english = new Class("English");
+		Todo todo1 = new Todo("todo1", "January", "1");
+		Todo todo2 = new Todo("todo2", "January", "1");
+		
+		List<Todo> englishTodos = new ArrayList<Todo>();
+		englishTodos.add(todo1);
+		englishTodos.add(todo2);
+		planner.listOfClassesAndTodos.put(english, englishTodos);
+		planner.deleteTodo("English", "todo1");
+		int numberOfTodos = planner.getNumberOfTodos();
+		
+		assertTrue(numberOfTodos == 1);
+	}
+	
+	@Test
+	void testDeleteNoTodos() { //empty list
+		planner.deleteTodo("English", "todo1");
+		int numberOfTodos = planner.getNumberOfTodos();
+		assertTrue(numberOfTodos == 0);
+	}
+	
+	
 
 }
