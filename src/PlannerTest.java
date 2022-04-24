@@ -218,5 +218,32 @@ class PlannerTest {
 		assertTrue(ordered.get(3) == todo2 || ordered.get(3) == todo5);
 		assertTrue(ordered.get(4) == todo2 || ordered.get(4) == todo5);
 	}
+	
+	@Test
+	void testTodosOfSpecifiedPriority() {
+		Class english = new Class("English");
+		Todo todo1 = new Todo("todo1", "January", "3");
+		Todo todo2 = new Todo("todo2", "January", "3");
+		Todo todo3 = new Todo("todo3", "January", "1");
+		
+		List<Todo> englishTodos = new ArrayList<Todo>();
+		englishTodos.add(todo1);
+		englishTodos.add(todo2);
+		englishTodos.add(todo3);
+		planner.listOfClassesAndTodos.put(english, englishTodos);
+		List<Todo> priority1 = planner.todosOfSpecifiedPriority(english, "1");
+		List<Todo> priority2 = planner.todosOfSpecifiedPriority(english, "2");
+		List<Todo> priority3 = planner.todosOfSpecifiedPriority(english, "3");
+		
+		List<Todo> one = new ArrayList<Todo>();
+		one.add(todo3);
+		List<Todo> three = new ArrayList<Todo>();
+		three.add(todo1);
+		three.add(todo2);
+		
+		assertTrue(priority1 == one);
+		assertTrue(priority2 == null);
+		assertTrue(priority3 == three);
+	}
 
 }

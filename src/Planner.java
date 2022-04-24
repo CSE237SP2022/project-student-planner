@@ -50,6 +50,9 @@ public class Planner {
 				//TODO: fill in for when a todo item is added
 				planner.getInputTodo();
 			}
+			else if (input.equals("P")) {
+				planner.printByPriority();
+			}
 			else if(input.equals("D")){
 				planner.deleteInputTodo();
 			}
@@ -72,6 +75,7 @@ public class Planner {
 		System.out.println("To add a class, enter C");
 		System.out.println("To add a todo, enter T");
 		System.out.println("To view your current list of classes and todos, enter L");
+		System.out.println("To view todos of a certain priority, enter P");
 		System.out.println("To delete a todo, enter D");
 		System.out.println("To exit your planner, enter X");
 	}
@@ -84,6 +88,27 @@ public class Planner {
 				List<Todo> orderedTodos = orderByPriority(key);
 				System.out.println(course + ":");
 				orderedTodos.forEach((t) -> {
+					System.out.println(t.getName()+" ("+t.getPriority()+")");
+				});
+				System.out.println();
+			});
+			
+		}
+		else {
+			System.out.println("You currently have no classes or todos.");
+		}
+	}
+	
+	public void printByPriority() {
+		System.out.println("What priority todos would you like to view?");
+		String priority = getUserInput();
+		System.out.println("Your current classes and todos:");
+		if(this.listOfClassesAndTodos != null) {
+			listOfClassesAndTodos.forEach((key, value) -> {
+				String course = key.getClassName();
+				List<Todo> todosByPriority = todosOfSpecifiedPriority(key, priority);
+				System.out.println(course + ":");
+				todosByPriority.forEach((t) -> {
 					System.out.println(t.getName()+" ("+t.getPriority()+")");
 				});
 				System.out.println();
@@ -204,6 +229,16 @@ public class Planner {
 		return orderedTodos;
 	}
 	
+	public List<Todo> todosOfSpecifiedPriority(Class className, String priority){
+		List<Todo> priorityList = new ArrayList<>();
+		listOfClassesAndTodos.get(className).forEach(value -> {
+			if(value.getPriority().equals(priority)) {
+				priorityList.add(value);
+			}
+		});
+		
+		return priorityList;
+	}
 	
 	
 }
