@@ -235,15 +235,10 @@ class PlannerTest {
 		List<Todo> priority2 = planner.todosOfSpecifiedPriority(english, "2");
 		List<Todo> priority3 = planner.todosOfSpecifiedPriority(english, "3");
 		
-		List<Todo> one = new ArrayList<Todo>();
-		one.add(todo3);
-		List<Todo> three = new ArrayList<Todo>();
-		three.add(todo1);
-		three.add(todo2);
-		
-		assertTrue(priority1 == one);
-		assertTrue(priority2 == null);
-		assertTrue(priority3 == three);
+		assertTrue(priority1.contains(todo3));
+		assertTrue(priority2.isEmpty());
+		assertTrue(priority3.contains(todo1));
+		assertTrue(priority3.contains(todo2));
 	}
 
 }
