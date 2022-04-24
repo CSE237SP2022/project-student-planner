@@ -205,18 +205,22 @@ public class Planner {
 		deleteTodo(className, todoName);
 	} 
 	
-	public void deleteTodo(String className, String todoName) {
+	public void deleteTodo(String className, String todoName) {		
 		listOfClassesAndTodos.forEach((key, value) -> {
 			if(key.getClassName().equals(className)) {
 				List<Todo> courseTodos = listOfClassesAndTodos.get(key);
-				for (Todo todo : courseTodos) {
-					if (todo.getName().equals(todoName)) {
-						courseTodos.remove(todo);
+				
+				for (Todo thisTodo : courseTodos) {
+					
+					if (thisTodo.getName().equals(todoName)) {
+						courseTodos.remove(thisTodo);
 					} else {
-						todo.getName();
+						System.out.println("This todo does not exist");
 					}
 				}
 				listOfClassesAndTodos.put(key, courseTodos);
+			} else {
+				System.out.println("This class does not exist");
 			}
 		});
 	}
