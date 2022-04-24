@@ -82,7 +82,9 @@ public class Planner {
 			listOfClassesAndTodos.forEach((key, value) -> {
 				String course = key.getClassName();
 				System.out.println(course + ":");
-				value.forEach((t) -> System.out.println(t.getName()));
+				value.forEach((t) -> {
+					System.out.println(t.getName()+" ("+t.getPriority()+")");
+				});
 				System.out.println();
 			});
 			
