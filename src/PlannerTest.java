@@ -156,6 +156,67 @@ class PlannerTest {
 		assertTrue(numberOfTodos == 0);
 	}
 	
+	@Test
+	void testOrderByPriorityInOrder() {
+		Class english = new Class("English");
+		Todo todo1 = new Todo("todo1", "January", "1");
+		Todo todo2 = new Todo("todo2", "January", "2");
+		Todo todo3 = new Todo("todo3", "January", "3");
+		
+		List<Todo> englishTodos = new ArrayList<Todo>();
+		englishTodos.add(todo1);
+		englishTodos.add(todo2);
+		englishTodos.add(todo3);
+		planner.listOfClassesAndTodos.put(english, englishTodos);
+		List<Todo> ordered = planner.orderByPriority(english);
+		
+		assertTrue(ordered.get(0) == todo1);
+		assertTrue(ordered.get(1) == todo2);
+		assertTrue(ordered.get(2) == todo3);
+	}
 	
+	@Test
+	void testOrderByPriorityBackward() {
+		Class english = new Class("English");
+		Todo todo1 = new Todo("todo1", "January", "3");
+		Todo todo2 = new Todo("todo2", "January", "2");
+		Todo todo3 = new Todo("todo3", "January", "1");
+		
+		List<Todo> englishTodos = new ArrayList<Todo>();
+		englishTodos.add(todo1);
+		englishTodos.add(todo2);
+		englishTodos.add(todo3);
+		planner.listOfClassesAndTodos.put(english, englishTodos);
+		List<Todo> ordered = planner.orderByPriority(english);
+		
+		assertTrue(ordered.get(0) == todo3);
+		assertTrue(ordered.get(1) == todo2);
+		assertTrue(ordered.get(2) == todo1);
+	}
+	
+	@Test
+	void testOrderByPriorityMixed() { //empty list
+		Class english = new Class("English");
+		Todo todo1 = new Todo("todo1", "January", "2");
+		Todo todo2 = new Todo("todo2", "January", "3");
+		Todo todo3 = new Todo("todo3", "January", "1");
+		Todo todo4 = new Todo("todo4", "January", "2");
+		Todo todo5 = new Todo("todo5", "January", "3");
+		
+		List<Todo> englishTodos = new ArrayList<Todo>();
+		englishTodos.add(todo1);
+		englishTodos.add(todo2);
+		englishTodos.add(todo3);
+		englishTodos.add(todo4);
+		englishTodos.add(todo5);
+		planner.listOfClassesAndTodos.put(english, englishTodos);
+		List<Todo> ordered = planner.orderByPriority(english);
+		
+		assertTrue(ordered.get(0) == todo3);
+		assertTrue(ordered.get(1) == todo1 || ordered.get(1) == todo4);
+		assertTrue(ordered.get(2) == todo1 || ordered.get(2) == todo4);
+		assertTrue(ordered.get(3) == todo2 || ordered.get(3) == todo5);
+		assertTrue(ordered.get(4) == todo2 || ordered.get(4) == todo5);
+	}
 
 }

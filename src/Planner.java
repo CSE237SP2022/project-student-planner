@@ -81,8 +81,9 @@ public class Planner {
 		if(this.listOfClassesAndTodos != null) {
 			listOfClassesAndTodos.forEach((key, value) -> {
 				String course = key.getClassName();
+				List<Todo> orderedTodos = orderByPriority(key);
 				System.out.println(course + ":");
-				value.forEach((t) -> {
+				orderedTodos.forEach((t) -> {
 					System.out.println(t.getName()+" ("+t.getPriority()+")");
 				});
 				System.out.println();
@@ -193,6 +194,14 @@ public class Planner {
 				listOfClassesAndTodos.put(key, courseTodos);
 			}
 		});
+	}
+	
+	public List<Todo> orderByPriority(Class className) {
+		List<Todo> unorderedTodos = listOfClassesAndTodos.get(className);
+		unorderedTodos.sort((o1, o2) -> 
+			o1.getPriority().compareTo(o2.getPriority()));
+		List<Todo> orderedTodos = unorderedTodos;
+		return orderedTodos;
 	}
 	
 	
