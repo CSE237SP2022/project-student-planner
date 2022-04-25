@@ -9,7 +9,7 @@ class TodoTest {
 	
 	@BeforeEach
 	void setup() {
-		todo = new Todo("essay", "April 1", "high"); //setup
+		todo = new Todo("essay", "April 1", "high", false); //setup
 	}
 	
 	@Test
@@ -28,6 +28,19 @@ class TodoTest {
 	void testGetLevel() {
 		String level = todo.getPriority();
 		assertTrue("high".equals(level));
+	}
+	
+	@Test
+	void testGetIsComplete() {
+		Boolean isComplete = todo.getIsComplete();
+		assertTrue(false == isComplete);
+	}
+	
+	@Test
+	void testSetIsComplete() {
+		todo.setIsComplete();
+		Boolean isComplete = todo.getIsComplete();
+		assertTrue(true == isComplete);
 	}
 
 }

@@ -56,6 +56,9 @@ public class Planner {
 			else if(input.equals("D")){
 				planner.deleteInputTodo();
 			}
+			else if(input.equals("O")){
+				planner.completeInputTodo();
+			}
 			else {
 				System.out.println("That is an invalid command.");
 			}
@@ -71,28 +74,40 @@ public class Planner {
 	
 	public void printInstructions() {
 		System.out.println();
-		//lists options of actions
+		// lists options of actions		
+		System.out.println("_______________________");
 		System.out.println("To add a class, enter C");
 		System.out.println("To add a todo, enter T");
 		System.out.println("To view your current list of classes and todos, enter L");
 		System.out.println("To view todos of a certain priority, enter P");
 		System.out.println("To delete a todo, enter D");
+		System.out.println("To check off a todo, enter O");
 		System.out.println("To exit your planner, enter X");
 	}
 	
 	public void printTodos() {
 		System.out.println("Your current classes and todos:");
+		
 		if(this.listOfClassesAndTodos != null) {
 			listOfClassesAndTodos.forEach((key, value) -> {
-				String course = key.getClassName();
+				String courseName = key.getClassName();
 				List<Todo> orderedTodos = orderByPriority(key);
-				System.out.println(course + ":");
+				System.out.println(courseName + ":");
+				
 				orderedTodos.forEach((t) -> {
-					System.out.println(t.getName()+" ("+t.getPriority()+")");
+					if (!t.getIsComplete()) {
+						System.out.println(t.getName()+" ("+t.getPriority()+")");
+					}
+				});
+				
+				System.out.println("Completed:");
+				orderedTodos.forEach((t) -> {
+					if (t.getIsComplete()) {
+						System.out.println(t.getName()+" ("+t.getPriority()+")");
+					}
 				});
 				System.out.println();
 			});
-			
 		}
 		else {
 			System.out.println("You currently have no classes or todos.");
@@ -158,7 +173,7 @@ public class Planner {
 		System.out.println("Enter the todo's priority level (between 1-3):");
 		String todoLevel = getUserInput();
 		
-		Todo todo = new Todo(todoName, todoDate, todoLevel);
+		Todo todo = new Todo(todoName, todoDate, todoLevel, false);
 		addTodo(todo, className);
 		
 	}
@@ -194,7 +209,6 @@ public class Planner {
 	}
 	
 	public void deleteInputTodo() {
-		
 		System.out.println("Enter the name of the class this todo falls under:");
 		String className = getUserInput();
 		//Class course = new Class(className);
@@ -221,6 +235,31 @@ public class Planner {
 				listOfClassesAndTodos.put(key, courseTodos);
 			} else {
 				System.out.println("This class does not exist");
+			}
+		});
+	}
+	
+	public void completeInputTodo() {
+		System.out.println("Enter the name of the class this todo falls under:");
+		String classNameInput = getUserInput();
+
+		System.out.println("Enter the name of the todo you would like to check off:");
+		String todoNameInput = getUserInput();
+		
+		completeTodo(classNameInput, todoNameInput);
+	}
+	
+	public void completeTodo(String classNameInput, String todoNameInput) {		
+		listOfClassesAndTodos.forEach((key, value) -> {
+			if(key.getClassName().equals(classNameInput)) {
+				List<Todo> courseTodos = listOfClassesAndTodos.get(key);
+				for (Todo thisTodo : courseTodos) {
+					if (thisTodo.getName().equals(todoNameInput)) {
+						thisTodo.setIsComplete();
+						System.out.println();
+						System.out.println(thisTodo.getName() + " has been marked as complete!");
+					}
+				}
 			}
 		});
 	}

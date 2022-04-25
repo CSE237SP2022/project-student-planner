@@ -35,8 +35,8 @@ class PlannerTest {
 	@Test
 	void testGetNumberOfTodos() {
 		Class english = new Class("English");
-		Todo todo1 = new Todo("todo1", "January", "1");
-		Todo todo2 = new Todo("todo2", "January", "1");
+		Todo todo1 = new Todo("todo1", "January", "1", false);
+		Todo todo2 = new Todo("todo2", "January", "1", false);
 		
 		List<Todo> englishTodos = new ArrayList<Todo>();
 		englishTodos.add(todo1);
@@ -78,7 +78,7 @@ class PlannerTest {
 
 		planner.listOfClassesAndTodos.put(english, englishTodos);
 		
-		Todo newTodo = new Todo("Write essay", "April 28th", "2");
+		Todo newTodo = new Todo("Write essay", "April 28th", "2", false);
 	
 		planner.addTodo(newTodo, englishString);
 		int numberOfTodos = planner.getNumberOfTodos();
@@ -90,8 +90,8 @@ class PlannerTest {
 	void testAddTodo() {	
 		String englishString = "English";
 		Class english = new Class("English");
-		Todo todo1 = new Todo("todo1", "January", "1");
-		Todo todo2 = new Todo("todo2", "January", "1");
+		Todo todo1 = new Todo("todo1", "January", "1", false);
+		Todo todo2 = new Todo("todo2", "January", "1", false);
 		
 		List<Todo> englishTodos = new ArrayList<Todo>();
 		englishTodos.add(todo1);
@@ -99,7 +99,7 @@ class PlannerTest {
 
 		planner.listOfClassesAndTodos.put(english, englishTodos);
 		
-		Todo newTodo = new Todo("Write essay", "April 28th", "2");
+		Todo newTodo = new Todo("Write essay", "April 28th", "2", false);
 	
 		planner.addTodo(newTodo, englishString);
 		int numberOfTodos = planner.getNumberOfTodos();
@@ -136,8 +136,8 @@ class PlannerTest {
 	void testDeleteTodo() {
 		String englishString = "English";
 		Class english = new Class("English");
-		Todo todo1 = new Todo("todo1", "January", "1");
-		Todo todo2 = new Todo("todo2", "January", "1");
+		Todo todo1 = new Todo("todo1", "January", "1", false);
+		Todo todo2 = new Todo("todo2", "January", "1", false);
 		
 		List<Todo> englishTodos = new ArrayList<Todo>();
 		englishTodos.add(todo1);
@@ -159,9 +159,9 @@ class PlannerTest {
 	@Test
 	void testOrderByPriorityInOrder() {
 		Class english = new Class("English");
-		Todo todo1 = new Todo("todo1", "January", "1");
-		Todo todo2 = new Todo("todo2", "January", "2");
-		Todo todo3 = new Todo("todo3", "January", "3");
+		Todo todo1 = new Todo("todo1", "January", "1", false);
+		Todo todo2 = new Todo("todo2", "January", "2", false);
+		Todo todo3 = new Todo("todo3", "January", "3", false);
 		
 		List<Todo> englishTodos = new ArrayList<Todo>();
 		englishTodos.add(todo1);
@@ -178,9 +178,9 @@ class PlannerTest {
 	@Test
 	void testOrderByPriorityBackward() {
 		Class english = new Class("English");
-		Todo todo1 = new Todo("todo1", "January", "3");
-		Todo todo2 = new Todo("todo2", "January", "2");
-		Todo todo3 = new Todo("todo3", "January", "1");
+		Todo todo1 = new Todo("todo1", "January", "3", false);
+		Todo todo2 = new Todo("todo2", "January", "2", false);
+		Todo todo3 = new Todo("todo3", "January", "1", false);
 		
 		List<Todo> englishTodos = new ArrayList<Todo>();
 		englishTodos.add(todo1);
@@ -197,11 +197,11 @@ class PlannerTest {
 	@Test
 	void testOrderByPriorityMixed() { //empty list
 		Class english = new Class("English");
-		Todo todo1 = new Todo("todo1", "January", "2");
-		Todo todo2 = new Todo("todo2", "January", "3");
-		Todo todo3 = new Todo("todo3", "January", "1");
-		Todo todo4 = new Todo("todo4", "January", "2");
-		Todo todo5 = new Todo("todo5", "January", "3");
+		Todo todo1 = new Todo("todo1", "January", "2", false);
+		Todo todo2 = new Todo("todo2", "January", "3", false);
+		Todo todo3 = new Todo("todo3", "January", "1", false);
+		Todo todo4 = new Todo("todo4", "January", "2", false);
+		Todo todo5 = new Todo("todo5", "January", "3", false);
 		
 		List<Todo> englishTodos = new ArrayList<Todo>();
 		englishTodos.add(todo1);
@@ -222,9 +222,9 @@ class PlannerTest {
 	@Test
 	void testTodosOfSpecifiedPriority() {
 		Class english = new Class("English");
-		Todo todo1 = new Todo("todo1", "January", "3");
-		Todo todo2 = new Todo("todo2", "January", "3");
-		Todo todo3 = new Todo("todo3", "January", "1");
+		Todo todo1 = new Todo("todo1", "January", "3", false);
+		Todo todo2 = new Todo("todo2", "January", "3", false);
+		Todo todo3 = new Todo("todo3", "January", "1", false);
 		
 		List<Todo> englishTodos = new ArrayList<Todo>();
 		englishTodos.add(todo1);
@@ -239,6 +239,25 @@ class PlannerTest {
 		assertTrue(priority2.isEmpty());
 		assertTrue(priority3.contains(todo1));
 		assertTrue(priority3.contains(todo2));
+	}
+	
+	@Test
+	void testCompleteTodo() {
+		Class english = new Class("English");
+		Todo todo1 = new Todo("todo1", "January", "3", false);
+		Todo todo2 = new Todo("todo2", "January", "3", false);
+		Todo todo3 = new Todo("todo3", "January", "1", false);
+		
+		List<Todo> englishTodos = new ArrayList<Todo>();
+		englishTodos.add(todo1);
+		englishTodos.add(todo2);
+		englishTodos.add(todo3);
+		planner.listOfClassesAndTodos.put(english, englishTodos);
+		
+		planner.completeTodo("English", "todo1");
+		Boolean isComplete = todo1.getIsComplete();
+		
+		assertTrue(true == isComplete);
 	}
 
 }
