@@ -210,32 +210,30 @@ public class Planner {
 	
 	public void deleteInputTodo() {
 		System.out.println("Enter the name of the class this todo falls under:");
-		String className = getUserInput();
+		String classNameInput = getUserInput();
 		//Class course = new Class(className);
 
 		System.out.println("Enter the name of the todo you would like to delete:");
-		String todoName = getUserInput();
+		String todoNameInput = getUserInput();
 		
-		deleteTodo(className, todoName);
+		deleteTodo(classNameInput, todoNameInput);
 	} 
 	
-	public void deleteTodo(String className, String todoName) {		
+	public void deleteTodo(String classNameInput, String todoNameInput) {	
+		List<Todo> todosAfterRemoval = new ArrayList<Todo>();
+		
 		listOfClassesAndTodos.forEach((key, value) -> {
-			if(key.getClassName().equals(className)) {
+			if(key.getClassName().equals(classNameInput)) {
 				List<Todo> courseTodos = listOfClassesAndTodos.get(key);
 				
-				for (Todo thisTodo : courseTodos) {
-					
-					if (thisTodo.getName().equals(todoName)) {
-						courseTodos.remove(thisTodo);
-					} else {
-						System.out.println("This todo does not exist");
+				for (Todo thisTodo : courseTodos) {					
+					if (!thisTodo.getName().equals(todoNameInput)) {
+						todosAfterRemoval.add(thisTodo);
 					}
 				}
-				listOfClassesAndTodos.put(key, courseTodos);
-			} else {
-				System.out.println("This class does not exist");
 			}
+			
+			listOfClassesAndTodos.put(key, todosAfterRemoval);
 		});
 	}
 	
